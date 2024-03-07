@@ -4,23 +4,6 @@ import { useState } from "react";
 
 
 const Input = () => {
- const [inputText, setInputText] = useState ({});
-const [tarea, setTarea] = useState ("")
-
-
-
- const handleChange = (e) => {
-
-  setInputText(e.target.value)
-  console.log("e.target.value", e.target.value)
- }
-
- const handleSubmit = (e) => {
-  e.preventDefault()
-  setTarea([inputText])
-  console.log(inputText)
-}
-
 
   return (
     <div className="caja">
@@ -30,11 +13,12 @@ const [tarea, setTarea] = useState ("")
           <form onSubmit={handleSubmit}>
             <input  
             onChange={handleChange} 
-            className="inputTareas" type="text"
+            className="inputTareas" 
+            type="text"
              placeholder="Agrega tus tareas" 
              name="inputOfTodo"
              />
-            <button  type="submit" className="todo-btn">
+            <button onClick={handleSubmit} type="submit" className="todo-btn">
               +</button>
           </form>
         </div>
