@@ -8,7 +8,7 @@ function App() {
 
   const [inputText, setInputText] = useState({});
   const [tarea, setTarea] = useState([
-    { inputOfTodo: "comprar cafe" },
+    { inputOfTodo: "" },
 
   ])
 
@@ -48,7 +48,7 @@ function App() {
       <div>
       {
         tarea.map((tareaTodo, index) => {
-          return < Tareas key={index} tareaTodo={tareaTodo}/>;
+          return < Tareas key={index} elementPropsTarea={tareaTodo}/>;
         })
       } 
       </div>

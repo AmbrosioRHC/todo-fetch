@@ -108,8 +108,8 @@ body {
 .tareas{
   position: relative;
   width: 400px;
-  height: 434px;
-  background-color: rgb(253, 250, 249);
+  height: 65px;
+    background-color: rgb(253, 250, 249);
   /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
   margin-top: -9px;
 }
