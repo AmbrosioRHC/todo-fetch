@@ -37,7 +37,7 @@ function App() {
                 className="inputTareas"
                 type="text"
                 placeholder="Agrega tus tareas"
-                name="inputOfTodo"
+                name="nameOfInput"
               />
               <button onClick={handleSubmit} type="submit" className="todo-btn">
                 +</button>
@@ -47,8 +47,8 @@ function App() {
       </div>
       <div>
       {
-        tarea.map((tareaTodo, index) => {
-          return < Tareas key={index} elementPropsTarea={tareaTodo}/>;
+        tarea.map((mapElement, index) => {
+          return < Tareas key={index} tareaProps={mapElement}/>;
         })
       } 
       </div>
