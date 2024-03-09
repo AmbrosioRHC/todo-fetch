@@ -15,7 +15,7 @@ const Input = () => {
             onChange={handleChange} 
             className="inputTareas" 
             type="text"
-             placeholder="Agrega tus tareas" 
+             placeholder="Agrega tus tOdos" 
              name="inputOfTodo"
              />
             <button onClick={handleSubmit} type="submit" className="todo-btn">

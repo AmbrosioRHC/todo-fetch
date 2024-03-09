@@ -33,32 +33,30 @@ function App() {
 
   return (
     <>
-      <div className="caja">
-        <h1 className="todo">To-do list</h1>
-        <div className="card">
-          <div className="textInput" >
-            <form >
-              <input
-                onChange={handleChange}
-                className="inputTareas"
-                type="text"
-                placeholder="Agrega tus tareas"
-                name="nameOfInput"
-              />
-              <button onClick={handleSubmit} type="submit" className="todo-btn">
-                +</button>
-            </form>
-          </div>
+      <h1 className="todo">tOdo</h1>
+        <div className="caja">
+        <div className="textInput" >
+          <form >
+            <input
+              onChange={handleChange}
+              className="inputTareas"
+              type="text"
+              placeholder="Agrega tus tareas"
+              name="nameOfInput"
+            />
+            <button onClick={handleSubmit} type="submit" className="todo-btn">
+              +</button>
+          </form>
         </div>
-      </div>
-      <div>
-        { tarea.length > 0 ? 
+      <div className="hayTareas">
+        {tarea.length > 0 ?
           tarea.map((mapElement, index) => {
             return < Tareas key={index} tareaProps={mapElement} />
-          }) : "no hay tarea"
-          
+          }) : "       No hay tarea"
         }
       </div>
+        </div>
+        
 
     </>
   )
