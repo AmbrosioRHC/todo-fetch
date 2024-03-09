@@ -1,7 +1,7 @@
 body {
 
-background-color: rgb(32, 5, 16);
-background: linear-gradient(180deg, rgb(32, 5, 16) 0%, rgb(51, 16, 30) 100%);  
+  background-color: rgb(32, 5, 16);
+  background: linear-gradient(180deg, rgb(32, 5, 16) 0%, rgb(51, 16, 30) 100%);
   background-position: center top;
   width: 100%;
   height: 100%;
@@ -105,24 +105,41 @@ background: linear-gradient(180deg, rgb(32, 5, 16) 0%, rgb(51, 16, 30) 100%);
   cursor: pointer;
 }
 
-.tareas{
+.tareas {
   position: relative;
   width: 400px;
   height: 65px;
-    background-color: rgb(27, 27, 27);
+  background-color: rgb(27, 27, 27);
   /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
   margin-top: -9px;
 }
 
-.caja{
-  position: relative;
+.caja {
+  position:relative;
   width: 400px;
-  height: 400px;
+  min-height: 250px;
   background-color: rgb(27, 27, 27);
   color: rgb(197, 197, 197);
   box-shadow: 0 0 30px 1px #cc3b3b;
 }
 
-.hayTareas{
+.hayTareas {
   text-indent: 25px;
+}
+
+.tareasRestantes {
+  position: absolute;
+  color: rgb(197, 197, 197);
+  bottom: 10px;
+  text-indent: 20px;
+
+}
+
+.eliminarTarea {
+  display: none;
+
+}
+
+.tareaAgregada:hover  .eliminarTarea  {
+  display: block;
 }

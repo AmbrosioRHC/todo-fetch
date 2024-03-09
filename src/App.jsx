@@ -24,9 +24,15 @@ function App() {
   }
   // la variable tarea será utilizada en el map para ir creando las tareas ingresadas
   const handleSubmit = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault()
+      setTarea([...tarea, inputText])
+    }
+  }
+
+  const handleSubmitBtn = (e) => {
     e.preventDefault()
     setTarea([...tarea, inputText])
-
   }
 
   // En form tengo que poner onSubmit={handleSubmit}??
@@ -34,29 +40,34 @@ function App() {
   return (
     <>
       <h1 className="todo">tOdo</h1>
-        <div className="caja">
+      <div className="caja">
         <div className="textInput" >
           <form >
             <input
               onChange={handleChange}
+              onKeyDown={handleSubmit}
               className="inputTareas"
               type="text"
               placeholder="Agrega tus tareas"
               name="nameOfInput"
             />
-            <button onClick={handleSubmit} type="submit" className="todo-btn">
+            <button onClick={handleSubmitBtn}
+              type="submit" className="todo-btn">
               +</button>
           </form>
         </div>
-      <div className="hayTareas">
-        {tarea.length > 0 ?
-          tarea.map((mapElement, index) => {
-            return < Tareas key={index} tareaProps={mapElement} />
-          }) : "       No hay tarea"
-        }
-      </div>
+        <div className="hayTareas">
+          {tarea.length > 0 ?
+            tarea.map((mapElement, index) => {
+              return < Tareas key={index} tareaProps={mapElement} />
+            }) : "       No hay tareas, añadir tareas"
+          }
         </div>
-        
+        <div className="tareasRestantes">
+          {tarea.length > 0 ? `Quedan ${tarea.length} tareas` : null}
+        </div>
+      </div>
+
 
     </>
   )
