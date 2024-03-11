@@ -1,12 +1,21 @@
 import { useState } from "react";
 import { TiDeleteOutline } from "react-icons/ti";
 
-const Tareas = (props) => {
+
+
+const Tareas = ({tareaProps, eliminarTarea}) => {
+
+    const handleEliminarTarea = () => {
+        eliminarTarea(tareaProps.nameOfInput);
+      };
+
     return (
         <>
             <div className="tareas">
-                <div className="tareaAgregada">{props.tareaProps.nameOfInput}
-                    <button className="eliminarTarea"><TiDeleteOutline />
+                <div className="tareaAgregada">{tareaProps.nameOfInput}
+                    <button 
+                    onClick={handleEliminarTarea}
+                    className="eliminarTarea"><TiDeleteOutline />
                     </button></div>
 
               
@@ -18,3 +27,4 @@ const Tareas = (props) => {
 }
 
 export default Tareas;
+

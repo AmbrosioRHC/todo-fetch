@@ -26,7 +26,8 @@ function App() {
   const handleSubmit = (e) => {
     if (e.key === "Enter") {
       e.preventDefault()
-      setTarea([...tarea, inputText])
+      setTarea([...tarea, inputText]);
+      setInputText('')
     }
   }
 
@@ -36,6 +37,11 @@ function App() {
   }
 
   // En form tengo que poner onSubmit={handleSubmit}??
+
+  const eliminarTarea = (valorTarea) => {
+    const nuevasTareas = tarea.filter(tarea => tarea.nameOfInput !== valorTarea);
+    setTarea(nuevasTareas);
+  };
 
   return (
     <>
@@ -59,7 +65,7 @@ function App() {
         <div className="hayTareas">
           {tarea.length > 0 ?
             tarea.map((mapElement, index) => {
-              return < Tareas key={index} tareaProps={mapElement} />
+              return < Tareas key={index} tareaProps={mapElement} eliminarTarea={eliminarTarea} />
             }) : "       No hay tareas, añadir tareas"
           }
         </div>
