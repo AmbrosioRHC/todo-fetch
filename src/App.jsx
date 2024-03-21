@@ -1,63 +1,87 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
-import { TbLetterXSmall } from "react-icons/tb";
-import Input from './components/inputTodo';
 import Tareas from "./components/tareas";
+
 
 function App() {
 
-  // useState  guarda y actualiza lo ingresado por el usuariom useState comienza como un objeto vacío
-
-
-  const [inputText, setInputText] = useState({});
-
-  // :
+  const [inputText, setInputText] = useState({})
   const [tarea, setTarea] = useState([])
 
-  // Acá e.target.name toma el name="nameOfInput" 
-  // y e.target.value lo ingresado por el usuario
+  useEffect(() => {
+    fetchTareas();
+  }, [] )
+
+  const fetchTareas = () => {
+    fetch("https://playground.4geeks.com/apis/fake/todos/user/ambrosio", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" }
+    })
+      .then((response) => { return response.json() })
+      .then((data) => { setTarea(data) })
+      .catch((error) => { console.log("error", error) })
+  }
+
+  // console.log("data: ", tarea)
+
   const handleChange = (e) => {
     setInputText({
-      [e.target.name]: e.target.value
+       label: e.target.value,
+       done: false
     })
-    // console.log("inputText", inputText, "e.target.value ", e.target.value, "e.target.name ", e.target.name)
+    // console.log("input", inputText)
   }
-  // la variable tarea será utilizada en el map para ir creando las tareas ingresadas
-  const handleSubmit = (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault()
-      setTarea([...tarea, inputText]);
-      setInputText('')
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter"){
+      const newTarea = [...tarea, inputText];
+      setTarea(newTarea);
+      fetch("https://playground.4geeks.com/apis/fake/todos/user/ambrosio", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newTarea)
+      })
     }
   }
 
-  const handleSubmitBtn = (e) => {
-    e.preventDefault()
-    setTarea([...tarea, inputText])
+
+  const handleCreateUser = (e) => {
+    fetch("https://playground.4geeks.com/apis/fake/todos/user/ambrosio", {
+      method: "PUT",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify([])
+    })
+    .then((response)=>{ return response.json()})
+    .then((data)=>{setTarea([...tarea, data]);
+    setInputText({ nameOfInput: "" })
+    })
+    .catch((error)=>{error})
   }
 
-  // En form tengo que poner onSubmit={handleSubmit}??
+
 
   const eliminarTarea = (valorTarea) => {
-    const nuevasTareas = tarea.filter(tarea => tarea.nameOfInput !== valorTarea);
-    setTarea(nuevasTareas);
+    const borrandoTareas = tarea.filter(tarea => tarea.value !== valorTarea);
+    setTarea(borrandoTareas);
   };
 
   return (
     <>
       <h1 className="todo">tOdo</h1>
+      <button onClick={handleCreateUser}>Crear usuario</button>
       <div className="caja">
         <div className="textInput" >
           <form >
             <input
               onChange={handleChange}
-              onKeyDown={handleSubmit}
+              onKeyDown={handleKeyDown}
               className="inputTareas"
               type="text"
               placeholder="Agrega tus tareas"
               name="nameOfInput"
+              value={inputText?.nameOfInput}
             />
-            <button onClick={handleSubmitBtn}
+            <button
               type="submit" className="todo-btn">
               +</button>
           </form>
@@ -65,7 +89,9 @@ function App() {
         <div className="hayTareas">
           {tarea.length > 0 ?
             tarea.map((mapElement, index) => {
-              return < Tareas key={index} tareaProps={mapElement} eliminarTarea={eliminarTarea} />
+              return < Tareas
+              key={index}
+              tareaProps={mapElement} eliminarTarea={eliminarTarea} />
             }) : "       No hay tareas, añadir tareas"
           }
         </div>

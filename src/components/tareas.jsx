@@ -4,7 +4,7 @@ import { TiDeleteOutline } from "react-icons/ti";
 
 
 const Tareas = ({tareaProps, eliminarTarea}) => {
-
+console.log(tareaProps)
     const handleEliminarTarea = () => {
         eliminarTarea(tareaProps.nameOfInput);
       };
@@ -12,7 +12,7 @@ const Tareas = ({tareaProps, eliminarTarea}) => {
     return (
         <>
             <div className="tareas">
-                <div className="tareaAgregada">{tareaProps.nameOfInput}
+                <div className="tareaAgregada">{tareaProps.label}
                     <button 
                     onClick={handleEliminarTarea}
                     className="eliminarTarea"><TiDeleteOutline />
