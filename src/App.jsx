@@ -5,7 +5,7 @@ import Tareas from "./components/tareas";
 
 function App() {
 
-  const [inputText, setInputText] = useState({})
+  const [inputText, setInputText] = useState({ nameOfInput: "" })
   const [tarea, setTarea] = useState([])
 
   useEffect(() => {
@@ -31,7 +31,7 @@ function App() {
     })
     // console.log("input", inputText)
   }
-
+console.log("tareaProps.label")
   const handleKeyDown = (e) => {
     if (e.key === "Enter"){
       const newTarea = [...tarea, inputText];
@@ -47,7 +47,7 @@ function App() {
 
   const handleCreateUser = (e) => {
     fetch("https://playground.4geeks.com/apis/fake/todos/user/ambrosio", {
-      method: "PUT",
+      method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify([])
     })
@@ -60,9 +60,21 @@ function App() {
 
 
 
-  const eliminarTarea = (valorTarea) => {
-    const borrandoTareas = tarea.filter(tarea => tarea.value !== valorTarea);
-    setTarea(borrandoTareas);
+  const eliminarTarea = (index) => {
+    const nuevasTareas = [...tarea];
+    nuevasTareas.splice(index, 1);
+    setTarea(nuevasTareas);
+  
+    fetch("https://playground.4geeks.com/apis/fake/todos/user/ambrosio", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ index: index })
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error("Error:", error));
   };
 
   return (
@@ -91,7 +103,8 @@ function App() {
             tarea.map((mapElement, index) => {
               return < Tareas
               key={index}
-              tareaProps={mapElement} eliminarTarea={eliminarTarea} />
+              tareaProps={mapElement} 
+              eliminarTarea={() => eliminarTarea(index)} />
             }) : "       No hay tareas, añadir tareas"
           }
         </div>
