@@ -55,7 +55,7 @@ function App() {
       .then((response) => { return response.json() })
       .then((data) => {
         setTarea([...tarea, data]);
-        setInputText({ nameOfInput: "" })
+        setInputText({ label: "", done: false })
       })
       .catch((error) => { error })
   }
@@ -70,7 +70,7 @@ function App() {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ index: index })
+      body: JSON.stringify({ tareaIndex: index })
     })
       .then(response => response.json())
       .then(data => console.log(data))
@@ -124,7 +124,6 @@ function App() {
           {tarea.length > 0 ? `Quedan ${tarea.length} tareas` : null}
         </div>
       </div>
-
     </>
   )
 }
