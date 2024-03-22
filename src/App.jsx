@@ -81,10 +81,26 @@ function App() {
       .catch(error => console.error("Error:", error));
   };
 
+
+const eliminarTodas = () => {
+  setTarea([])
+  setInputText({ label: "", done: false })
+  fetch("https://playground.4geeks.com/apis/fake/todos/user/ambrosio", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify([])
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error("Error", error));
+}
   return (
     <>
       <h1 className="todo">tOdo</h1>
       <button onClick={handleCreateUser}>Crear usuario</button>
+      <button onClick={eliminarTodas}>Eliminar todas las tareas</button>
       <div className="caja">
         <div className="textInput" >
           <form >
