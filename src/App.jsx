@@ -5,12 +5,12 @@ import Tareas from "./components/tareas";
 
 function App() {
 
-  const [inputText, setInputText] = useState({ nameOfInput: "" })
+  const [inputText, setInputText] = useState({ label: "", done: false })
   const [tarea, setTarea] = useState([])
 
   useEffect(() => {
     fetchTareas();
-  }, [] )
+  }, [])
 
   const fetchTareas = () => {
     fetch("https://playground.4geeks.com/apis/fake/todos/user/ambrosio", {
@@ -22,25 +22,27 @@ function App() {
       .catch((error) => { console.log("error", error) })
   }
 
-  // console.log("data: ", tarea)
 
   const handleChange = (e) => {
     setInputText({
-       label: e.target.value,
-       done: false
+      label: e.target.value,
+      done: false
     })
-    // console.log("input", inputText)
+
   }
-console.log("tareaProps.label")
+
   const handleKeyDown = (e) => {
-    if (e.key === "Enter"){
+
+    if (e.key === "Enter") {
+      e.preventDefault();
+
       const newTarea = [...tarea, inputText];
       setTarea(newTarea);
       fetch("https://playground.4geeks.com/apis/fake/todos/user/ambrosio", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newTarea)
-      })
+      });
     }
   }
 
@@ -48,14 +50,15 @@ console.log("tareaProps.label")
   const handleCreateUser = (e) => {
     fetch("https://playground.4geeks.com/apis/fake/todos/user/ambrosio", {
       method: "POST",
-      headers: {"Content-Type": "application/json"},
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify([])
     })
-    .then((response)=>{ return response.json()})
-    .then((data)=>{setTarea([...tarea, data]);
-    setInputText({ nameOfInput: "" })
-    })
-    .catch((error)=>{error})
+      .then((response) => { return response.json() })
+      .then((data) => {
+        setTarea([...tarea, data]);
+        setInputText({ nameOfInput: "" })
+      })
+      .catch((error) => { error })
   }
 
 
@@ -64,7 +67,7 @@ console.log("tareaProps.label")
     const nuevasTareas = [...tarea];
     nuevasTareas.splice(index, 1);
     setTarea(nuevasTareas);
-  
+
     fetch("https://playground.4geeks.com/apis/fake/todos/user/ambrosio", {
       method: "DELETE",
       headers: {
@@ -72,9 +75,9 @@ console.log("tareaProps.label")
       },
       body: JSON.stringify({ index: index })
     })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error("Error:", error));
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error("Error:", error));
   };
 
   return (
@@ -91,20 +94,18 @@ console.log("tareaProps.label")
               type="text"
               placeholder="Agrega tus tareas"
               name="nameOfInput"
-              value={inputText?.nameOfInput}
+              value={inputText.label}
             />
-            <button
-              type="submit" className="todo-btn">
-              +</button>
+           
           </form>
         </div>
         <div className="hayTareas">
           {tarea.length > 0 ?
             tarea.map((mapElement, index) => {
               return < Tareas
-              key={index}
-              tareaProps={mapElement} 
-              eliminarTarea={() => eliminarTarea(index)} />
+                key={index}
+                tareaProps={mapElement}
+                eliminarTarea={() => eliminarTarea(index)} />
             }) : "       No hay tareas, añadir tareas"
           }
         </div>
