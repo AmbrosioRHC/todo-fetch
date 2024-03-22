@@ -22,7 +22,6 @@ function App() {
       .catch((error) => { console.log("error", error) })
   }
 
-
   const handleChange = (e) => {
     setInputText({
       label: e.target.value,
@@ -47,7 +46,6 @@ function App() {
     }
   }
 
-
   const handleCreateUser = (e) => {
     fetch("https://playground.4geeks.com/apis/fake/todos/user/ambrosio", {
       method: "POST",
@@ -61,8 +59,6 @@ function App() {
       })
       .catch((error) => { error })
   }
-
-
 
   const eliminarTarea = (index) => {
     const nuevasTareas = [...tarea];
@@ -81,21 +77,20 @@ function App() {
       .catch(error => console.error("Error:", error));
   };
 
-
-const eliminarTodas = () => {
-  setTarea([])
-  setInputText({ label: "", done: false })
-  fetch("https://playground.4geeks.com/apis/fake/todos/user/ambrosio", {
+  const eliminarTodas = () => {
+    setTarea([])
+    setInputText({ label: "", done: false })
+    fetch("https://playground.4geeks.com/apis/fake/todos/user/ambrosio", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify([])
     })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error("Error", error));
-}
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error("Error", error));
+  }
   return (
     <>
       <h1 className="todo">tOdo</h1>
@@ -113,7 +108,6 @@ const eliminarTodas = () => {
               name="nameOfInput"
               value={inputText.label}
             />
-           
           </form>
         </div>
         <div className="hayTareas">
@@ -130,7 +124,6 @@ const eliminarTodas = () => {
           {tarea.length > 0 ? `Quedan ${tarea.length} tareas` : null}
         </div>
       </div>
-
 
     </>
   )
